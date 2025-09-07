@@ -1,19 +1,20 @@
-pipeline{
-
-    agent any
-
-    stages{
-        stage('Install Dependencies'){
-            steps{
-                sh 'npm install'
-            }
-        }
-
-        stage('Run Tests'){
-            steps{
-                sh 'npx cypress run --browser chrome --headless'
-            }
-        }
+pipeline {
+  agent any
+  stages {
+    stage('Checkout') {
+      steps {
+        git branch: 'main', url: 'https://github.com/EbenezerAnsere/learn-jenkin-cypress.git'
+      }
     }
-
+    stage('Install dependencies') {
+      steps {
+        sh 'npm install'
+      }
+    }
+    stage('Run Cypress tests') {
+      steps {
+        sh 'npx cypress run'
+      }
+    }
+  }
 }
